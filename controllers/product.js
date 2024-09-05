@@ -13,17 +13,11 @@ exports.create = async (req, res) => {
         case !description:
             return res.status(400).json({ error: 'Description is required' });
 
-        case !image:
-            return res.status(400).json({ error: 'Image is required' });
-
         case !price:
-            return res.status(400).json({ error: 'Price is required' });
-
-        case !stock:
-            return res.status(400).json({ error: 'Stock is required' });            
+            return res.status(400).json({ error: 'Price is required' });           
     }
     // create product
-    const product =  await Product.create({ name, description, image, price, stock, slug })
+    const product =  await Product.create({ name, description, price, slug })
     return res.status(200).json(product);
 };
 
