@@ -7,6 +7,7 @@ require('dotenv').config();
 // app
 const app = express();
 const productRoutes = require('./routes/product');
+const authRoutes = require('./routes/auth');
 
 // db
 mongoose
@@ -23,6 +24,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 app.use('/api', productRoutes);
+app.use('/api', authRoutes);
 
 // port
 const port = process.env.PORT || 8000;
