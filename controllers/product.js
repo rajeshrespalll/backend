@@ -1,3 +1,4 @@
+const product = require('../models/product');
 const Product = require('../models/product');
 const slugify = require('slugify');
 
@@ -48,7 +49,7 @@ exports.update = async (req, res) => {
      newSlug = slugify(name);
      try {
         const updated = await Product.findOneAndUpdate({ slug }, { name, description, price, stock, slug: newSlug }, { new: true })
-        return res.status(200).json(post)
+        return res.status(200).json(product)
      } catch (error) {
         return res.status(400).json({ error: 'update error' })
      }
@@ -58,7 +59,7 @@ exports.remove = async (req, res) => {
     const { slug } = req.params;
     const deleted = await Product.findOneAndDelete({ slug }).exec()
 
-        if(!post)
+        if(![product])
             return res.status(400).json({ error: 'delete error' })
         return res.status(200).json(deleted);
 };
