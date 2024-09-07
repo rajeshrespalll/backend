@@ -41,3 +41,24 @@ exports.read = async (req, res) => {
         return res.status(400).json({ error: 'api error' })
         return res.status(200).json(product);
 };
+
+exports.update = async (req, res) => {
+    const { slug } = req.params;
+    const { name, description, price, stock } = req.body;
+     newSlug = slugify(name);
+     try {
+        const updated = await Product.findOneAndUpdate({ slug }, { name, description, price, stock, slug: newSlug }, { new: true })
+        return res.status(200).json(post)
+     } catch (error) {
+        return res.status(400).json({ error: 'update error' })
+     }
+};
+
+exports.remove = async (req, res) => {
+    const { slug } = req.params;
+    const deleted = await Product.findOneAndDelete({ slug }).exec()
+
+        if(!post)
+            return res.status(400).json({ error: 'delete error' })
+        return res.status(200).json(deleted);
+};
